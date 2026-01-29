@@ -4,16 +4,33 @@
 <meta charset="UTF-8">
 <title>Random Fortnite Gun Alert</title>
 <style>
-  body { margin:0; overflow:hidden; font-family: 'Arial', sans-serif; background: transparent; }
-  .alert { display:flex; align-items:center; justify-content:center; font-size:40px; color:#fff; text-shadow: 2px 2px 4px #000; }
-  .gun-img { width:80px; height:80px; margin-left:15px; }
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    background: transparent;
+  }
+  .alert {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: #fff;
+    text-shadow: 2px 2px 4px #000;
+    height: 100vh;
+  }
+  .gun-img {
+    width: 80px;
+    height: 80px;
+    margin-left: 15px;
+  }
 </style>
 </head>
 <body>
 <div class="alert" id="alert">
   Waiting for follower...
 </div>
-
+  
 <script>
 const guns = [
   { name: "Hammer Assault Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Hammer%20Assault%20rifle.png?raw=true" },
@@ -91,18 +108,26 @@ const guns = [
 
 ];
 
+
+// Function to trigger a follower alert
 function showFollowerAlert(username) {
   const gun = guns[Math.floor(Math.random() * guns.length)];
   const alertDiv = document.getElementById('alert');
   alertDiv.innerHTML = `${username} got a ${gun.name}! <img class="gun-img" src="${gun.img}" />`;
 
   setTimeout(() => {
-    alertDiv.innerHTML = '';
+    alertDiv.innerHTML = 'Waiting for follower...';
   }, 5000);
 }
 
+// ✅ IMPORTANT: Do NOT call showFollowerAlert("test") here
+// TikTok Live Studio or OBS will call it dynamically when someone follows
+</script>
+</body>
+</html>
 </script>
 </body>
 
 </html>
+
 
