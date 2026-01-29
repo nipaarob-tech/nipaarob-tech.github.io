@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Random Fortnite Gun Alert</title>
+<style>
+  body { margin:0; overflow:hidden; font-family: 'Arial', sans-serif; background: transparent; }
+  .alert { display:flex; align-items:center; justify-content:center; font-size:40px; color:#fff; text-shadow: 2px 2px 4px #000; }
+  .gun-img { width:80px; height:80px; margin-left:15px; }
+</style>
+</head>
+<body>
+<div class="alert" id="alert">
+  Waiting for follower...
+</div>
+
+<script>
+const guns = [
+  { name: "Hammer Assault Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Hammer%20Assault%20rifle.png?raw=true" },
+  { name: "Tactical Assault Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Tactical%20Assault%20Rifle.png?raw=true" },
+  { name: "E-11 Blaster Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/E11%20Blaster%20Rifle.png?raw=true" },
+  { name: "Overclocked Pulse Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Overclocked%20Rifle.png?raw=true" },
+  { name: "Fury Assault Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Fury%20Assault%20Rifle.png?raw=true" },
+  { name: "Enhanced Fury Assault Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Enhanced%20Fury%20Assault%20Rifle.png?raw=true" },
+  { name: "Eradicator Hop Rock Fury Assault Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Eradicator%20Hop%20Rock%20Fury%20Assault%20Rifle.png?raw=true" },
+  { name: "Wood Stake Shotgun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Wood%20Stake%20Shotgun.png?raw=true" },
+  { name: "High Stakes’ Shotgun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/High%20Stakes%20Shotgun.png?raw=true" },
+  { name: "Twinfire Auto Shotgun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Twinfire%20Auto%20Shotgun.png?raw=true" },
+  { name: "Enhanced Twinfire Auto Shotgun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Enhanced%20Twinfire%20Shotgun.png?raw=true" },
+  { name: "Sentinel Pump Shotgun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Sentinel%20Pump%20Shotgun.png?raw=true" },
+  { name: "Enhanced Sentinel Pump Shotgun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Enhanced%20Sentinel%20Pump%20Shotgun.png?raw=true" },
+  { name: "Sweeper Shotgun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Sweeper%20Shotgun.png?raw=true" },
+  { name: "Stinger SMG", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Stinger%20SMG.png?raw=true" },
+  { name: "Veiled Precision SMG", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Veiled%20Precision%20SMG.png?raw=true" },
+  { name: "Night Rose Veiled Precision SMG", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Night%20Rose%20Veiled%20Precision%20SMG.png?raw=true" },
+  { name: "Hyperburst Pistol", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Hyperburst%20Pistol.png?raw=true" },
+  { name: "Enhanced Hyperburst Pistol", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Enhanced%20Hyperburst%20Pistol.png?raw=true" },
+  { name: "Deadeye DMR", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Deadeye%20DMR.png?raw=true" },
+  { name: "Wookiee Bowcaster", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Wookiee%20Bowcaster.png?raw=true" },
+  { name: "Sideways Minigun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Sideways%20Minigun.png?raw=true" },
+  { name: "Light Machine Gun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Light%20Machine%20Gun.png?raw=true" },
+  { name: "Night Hawk", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Night%20Hawk.png?raw=true" },
+  { name: "Minigun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Minigun.png?raw=true" },
+  { name: "Hand Cannon", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Hand%20Canon.png?raw=true" },
+  { name: "Crossbow", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Crossbow.png?raw=true" },
+  { name: "Fiend Hunter Crossbow", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Fiend%20Hunter%20Crossbow.png?raw=true" },
+  { name: "Cupid’s Crossbow", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Cupid's%20Crossbow.png?raw=true" },
+  { name: "Luke’s Lightsaber", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Luke's%20Lightsaber.png?raw=true" },
+  { name: "Brutus’ Minigun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Brutus'%20Minigun%20.png?raw=true" },
+  { name: "Harpoon Gun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Harpoon%20Gun.png?raw=true" },
+  { name: "Proximity Mine", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Proximity%20Mine.png?raw=true" },
+  { name: "Deadpool’s Hand Cannons", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Deadpool's%20Hand%20Cannon.png?raw=true" },
+  { name: "Egg Launcher", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Egg%20Launcher.png?raw=true" },
+  { name: "Explosive Batarang", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Explosive%20Batarang.png?raw=true" },
+  { name: "Cuddle Fish", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Cuddle%20Fish.png?raw=true" },
+  { name: "Alien Knockgun Launcher", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Alien%20Knockgun%20Launcher.png?raw=true" },
+  { name: "Guided Missile", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Guided%20Missile.png?raw=true" },
+  { name: "Paper Bomb Kunai", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Paper%20Bomb%20Kunai.png?raw=true" },
+  { name: "Sticky Grenade Launcher", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Sticky%20Grenade%20Launcher.png?raw=true" },
+  { name: "Boom Bow", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Boom%20Bow.png?raw=true" },
+  { name: "Primal Bow", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Primal%20Bow.png?raw=true" },
+  { name: "Kymera Ray Gun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Kymera%20Ray%20Gun.png?raw=true" },
+  { name: "Recon Scanner", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Recon%20Scanner.png?raw=true" },
+  { name: "Plasma Cannon", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Plasma%20Cannon.png?raw=true" },
+  { name: "Sideways Scythe", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Sideways%20Scythe.png?raw=true" },
+  { name: "Assault Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Assault%20Rifle.png?raw=true" },
+  { name: "Suppressed Assault Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Suppressed%20Assault%20Rifle.png?raw=true" },
+  { name: "Chrome Assault Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Chrome%20Assault%20Rifle.png?raw=true" },
+  { name: "Heavy Assault Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Heavy%20Assault%20Rifle.png?raw=true" },
+  { name: "MK-Seven Assault Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/MK-Seven%20Assault%20Rifle.png?raw=true" },
+  { name: "Ranger Assault Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Ranger%20Assault%20Rifle.png?raw=true" },
+  { name: "Two-Shot Shotgun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Two-Shot%20Shotgun.png?raw=true" },
+  { name: "Tactical Shotgun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Tactical%20Shotgun.png?raw=true" },
+  { name: "Chrome Shotgun", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Chrome%20Shotgun.png?raw=true" },
+  { name: "Dual Fiend Hunters", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Dual%20Fiend%20Hunters.png?raw=true" },
+  { name: "Machine Pistol", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Machine%20Pistol.png?raw=true" },
+  { name: "Combat Pistol", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Combat%20Pistol.png?raw=true" },
+  { name: "Pistol", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Pistol.png?raw=true" },
+  { name: "Suppressed Pistol", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Suppressed%20Pistol.png?raw=true" },
+  { name: "Rocket Launcher", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Rocket%20Launcher.png?raw=true" },
+  { name: "Pumpkin Launcher", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Pumpkin%20Launcher.png?raw=true" },
+  { name: "Snowball Launcher", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Snowball%20Launcher.png?raw=true" },
+  { name: "Ex-Caliber Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Ex-caliber%20Rifle.png?raw=true" },
+  { name: "Reaper Sniper Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Reaper%20Sniper%20Rifle.png?raw=true" },
+  { name: "Heavy Impact Sniper Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Heavy%20Impact%20Sniper%20Rifle.png?raw=true" },
+  { name: "Sovereign Sniper", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Sovereign%20Sniper.png?raw=true" },
+  { name: "Semi-Auto Sniper Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Semi%20Auto%20Sniper%20Rifle.png?raw=true" },
+  { name: "Suppressed Sniper Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Suppressed%20Sniper%20Rifle.png?raw=true" },
+  { name: "Storm Scout Sniper Rifle", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Storm%20SCout%20SNiper%20rifle.png?raw=true" },
+  { name: "Proximity Grenade Launcher", img: "https://github.com/nipaarob-tech/fortnite-guns/blob/main/Proximity%20Greande%20Launcher.png?raw=true" }
+
+];
+
+// Function to trigger alert
+function showFollowerAlert(username) {
+  const gun = guns[Math.floor(Math.random() * guns.length)];
+  const alertDiv = document.getElementById('alert');
+  alertDiv.innerHTML = ` ${username} got a ${gun.name}! <img class="gun-img" src="${gun.img}" />`;
+
+  // Auto-hide after 5 seconds
+  setTimeout(() => { alertDiv.innerHTML = ''; }, 5000);
+}
+
+showFollowerAlert("nefnkf");
+</script>
+</body>
+</html>
